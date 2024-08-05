@@ -85,6 +85,7 @@ export default function Home() {
       flexDirection={'column'}
       alignItems={'center'}
       gap={2}
+      bgcolor={'#92b6b1'}
     >
       <Modal
         open={open}
@@ -121,43 +122,70 @@ export default function Home() {
       <Button variant="contained" onClick={handleOpen}>
         Add New Item
       </Button>
-      <Box border={'1px solid #333'}>
+      <Box border={'none'}>
         <Box
           width="800px"
           height="100px"
-          bgcolor={'#ADD8E6'}
           display={'flex'}
           justifyContent={'center'}
           alignItems={'center'}
         >
-          <Typography variant={'h2'} color={'#333'} textAlign={'center'}>
+          <Typography
+            variant={'h2'}
+            color={'#'}
+            textAlign={'center'}
+            fontFamily={'Arial'}
+            style={{ textShadow: '2px 2px 4px #000' }}
+          >
             Inventory Items
           </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow={'auto'}>
-          {inventory.map(({name, quantity}) => (
+        <Box
+          width="800px"
+          height="300px"
+          overflow={'auto'}
+          display={'flex'}
+          flexDirection={'column'}
+          gap={2}
+          padding={2}
+        >
+          {inventory.map(({ name, quantity }) => (
             <Box
               key={name}
-              width="100%"
-              minHeight="150px"
               display={'flex'}
               justifyContent={'space-between'}
               alignItems={'center'}
               bgcolor={'#f0f0f0'}
               paddingX={5}
+              borderRadius={12}
             >
-              <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
+              <Typography
+                variant={'h4'}
+                color={'#333'}
+                textAlign={'center'}
+                onClick={() => {
+                  // Open modal with full name
+                  alert(name)
+                }}
+                style={{
+                  cursor: 'pointer',
+                  maxWidth: '18ch',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant={'h3'} color={'#333'} textAlign={'center'}>
-                Quantity: {quantity}
+              <Typography variant={'h4'} color={'#333'} textAlign={'center'} style={{ flex: '1', textAlign: 'right'}}>
+                Quantity: {quantity.toString().padStart(3, '0')}
               </Typography>
               <Button variant="contained" onClick={() => removeItem(name)}>
                 Remove
               </Button>
             </Box>
           ))}
-        </Stack>
+        </Box>
       </Box>
     </Box>
   )
